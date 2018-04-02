@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home Page</title>
+    </head>
+    <body>
+        <h1>Welcome, {{ username.title() }}</h1>
+        <form method="POST">
+            <label for="answer">Type Your Answer:</label>
+            <input type="text" id="answer" name ="answer">
+            <button>Submit Answer</button>
+        </form>
+        
+        {% for answer in incorrect_answers %}
+        <p>{{ answer }}</p>
+        {% endfor %}
+        
+    </body>
+</html>
