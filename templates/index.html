@@ -1,14 +1,11 @@
+{% extends 'base.html' %} {% block content %}
 
-<html>
-    <head>
-        <title>Chat</title>
-    </head>
-    <body>
         <h1>Welcome, {{ username }}</h1> 
         <form method="POST">
             <label for="username">Username:</label>
-            <input type="text" id="username" name ="username">
-            <button>Submit Username</button>
+            <input type="text" class="form-control" placeholder="Username" name="username" id="username" required data-validation-required-message="Type Your Answer.">
+            <br>
+            <button type="submit" class="btn btn-primary" id="sendUsernameButton">Submit Username</button>
+
         </form>
-    </body>
-</html>
+ {% endblock %}

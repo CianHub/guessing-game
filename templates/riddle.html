@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Home Page</title>
-    </head>
-    <body>
+{% extends 'base.html' %} {% block content %}
         <h1>Welcome, {{ username.title() }}</h1>
+        <h2>Your Question</h2>
+        <p>{{ riddle }}</p>
+        
         <form method="POST">
             <label for="answer">Type Your Answer:</label>
-            <input type="text" id="answer" name ="answer">
-            <button>Submit Answer</button>
+            <input type="text" class="form-control" placeholder="Type Your Answer" name="answer" id="answer" required data-validation-required-message="Type Your Answer.">
+            <br>
+            <button type="submit" class="btn btn-primary" id="sendAnswerButton">Submit Your Answer</button>
+
         </form>
-        
+        <br>
+        <h2>Previous Incorrect Answers</h2>
         {% for answer in incorrect_answers %}
         <p>{{ answer }}</p>
         {% endfor %}
-        
-    </body>
-</html>
+{% endblock %}
