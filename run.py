@@ -31,14 +31,18 @@ def check_riddle(answer, qnumber):
         content = json.load(riddles)
         for check in content:
             print qnumber
-            if check["answer"] in answer and check["number"] in qnumber:
+            if check["answer"].title() in answer.title() and check["number"] in qnumber:
                 print check["answer"]
+                clear_text_file("data/incorrect_answers.txt")
                 return True
             elif check["answer"] not in answer:
                 print check["answer"]
                 continue
-                return False 
-            
+  
+def clear_text_file(filename):
+    with open(filename, 'w') as f:
+        f.write("")
+          
 def print_content(filename):
     # Prints content from a specified file #
     content = []
