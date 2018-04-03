@@ -1,3 +1,5 @@
+# ..................................Set Up
+
 import os
 import json
 from datetime import datetime
@@ -9,6 +11,8 @@ except NameError:
     to_unicode = str
 
 app = Flask(__name__)
+
+# ..................................General Functions
 
 def write_to_file(filename, data):
     #Writes data to a specified file#
@@ -23,11 +27,31 @@ def check_in_file(filename, data):
             return True
         else:
             return False
+            
+def clear_text_file(filename):
+    # Clears a specified text file #
+    with open(filename, 'w') as f:
+        f.write("")
+
+def write_to_json(filename, user):
+    # Writes user data to specificed json file #
+    data = {"name": user, "score": 0} 
+    with io.open(filename, 'a', encoding='utf8') as outfile:
+        str_ = json.dumps(data,indent=4, sort_keys=True, separators=(',', ': '), ensure_ascii=False) 
+        outfile.write(to_unicode(str_))
+
+def print_content(filename):
+    # Prints content from a specified file #
+    content = []
+    with open(filename, "r") as file_content:
+        content = file_content.readlines()
+    return content
+
+# ..................................Riddle Game Functions
 
 def check_riddle(answer, qnumber):
     #Checks if the answer to the riddle is correct#
     with open("data/riddles.json", "r") as riddles:
-        
         content = json.load(riddles)
         for check in content:
             print qnumber
@@ -38,24 +62,23 @@ def check_riddle(answer, qnumber):
             elif check["answer"] not in answer:
                 print check["answer"]
                 continue
-  
-def clear_text_file(filename):
-    with open(filename, 'w') as f:
-        f.write("")
-          
-def print_content(filename):
-    # Prints content from a specified file #
-    content = []
-    with open(filename, "r") as file_content:
-        content = file_content.readlines()
-    return content
+            
+def store_incorrect_answers(username, answer):
+    # write incorrect answers to the incorrect answer text file #
+    write_to_file("data/incorrect_answers.txt", "({0}) {1} - {2}\n".format(
+        datetime.now().strftime('%H:%M:%S'),
+        username.title(),
+        answer))
 
-def write_to_json(filename, user):
-    data = {"name": user, "score": 0} 
-    with io.open(filename, 'a', encoding='utf8') as outfile:
-        str_ = json.dumps(data,indent=4, sort_keys=True, separators=(',', ': '), ensure_ascii=False) 
-        outfile.write(to_unicode(str_))
-    
+def check_answers(username, answer, qnumber):
+    # Check if answer is correct #
+    if check_riddle(answer, qnumber):
+        return True
+    else:
+        store_incorrect_answers(username, answer)
+
+# ..................................Template Page Functions
+
 @app.route('/', methods=["GET", "POST"])
 def index():
     # If a user submits via the submit username button, a unique username is stored and user is redirected to their page, if username already exists user is logged in #
@@ -68,22 +91,6 @@ def index():
             return redirect(request.form["username"] + '/' + '0')
     return render_template("index.html")
  
-def store_incorrect_answers(username, answer):
-    # write incorrect answers to the incorrect answer text file #
-    write_to_file("data/incorrect_answers.txt", "({0}) {1} - {2}\n".format(
-        datetime.now().strftime('%H:%M:%S'),
-        username.title(),
-        answer))
-
-def check_answers(username, answer, qnumber):
-    # Check if answer is incorrect and if so add the incorrect answer to the incorrect answer text file #
-    if check_riddle(answer, qnumber):
-        print("correct")
-        return True
-    else:
-        print("incorrect")
-        store_incorrect_answers(username, answer)
-        
 @app.route('/<username>/<qnumber>', methods=["GET", "POST"])
 def user(username, qnumber):
     riddle = {}
@@ -102,7 +109,7 @@ def user(username, qnumber):
 
 @app.route('/<username>/<qnumber>/<answer>')
 def send_answer(username, qnumber, answer):
-    """ Create a new answer and redirect back to the riddle page"""
+    # Create a new answer and redirect back to the riddle page
     if check_answers(username, answer, qnumber):
         new_q = str(int(qnumber) + 1)
         qnumber = new_q
@@ -111,4 +118,6 @@ def send_answer(username, qnumber, answer):
         
     return redirect('/' + username + '/' + qnumber)
  
+# ..................................Run Web App
+
 app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=True)
