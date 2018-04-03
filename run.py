@@ -2,8 +2,11 @@ import os
 import json
 from datetime import datetime
 from flask import Flask, redirect, render_template, request
-from socket import *
-
+import io
+try:
+    to_unicode = unicode
+except NameError:
+    to_unicode = str
 
 app = Flask(__name__)
 
@@ -42,7 +45,13 @@ def print_content(filename):
     with open(filename, "r") as file_content:
         content = file_content.readlines()
     return content
-        
+
+def write_to_json(filename, user):
+    data = {"name": user, "score": 0} 
+    with io.open(filename, 'a', encoding='utf8') as outfile:
+        str_ = json.dumps(data,indent=4, sort_keys=True, separators=(',', ': '), ensure_ascii=False) 
+        outfile.write(to_unicode(str_))
+    
 @app.route('/', methods=["GET", "POST"])
 def index():
     # If a user submits via the submit username button, a unique username is stored and user is redirected to their page, if username already exists user is logged in #
@@ -51,6 +60,7 @@ def index():
             return redirect(request.form["username"] + '/' + '0')
         else:
             write_to_file("data/users.txt", request.form["username"].title() + "\n")
+            write_to_json("data/leaderboard.json", request.form["username"].title() )
             return redirect(request.form["username"] + '/' + '0')
     return render_template("index.html")
  
@@ -92,7 +102,7 @@ def send_answer(username, qnumber, answer):
     if check_answers(username, answer, qnumber):
         new_q = str(int(qnumber) + 1)
         qnumber = new_q
-    if qnumber > 2:
+    if int(qnumber) > 2:
         return render_template("leaderboard.html")
         
     return redirect('/' + username + '/' + qnumber)
