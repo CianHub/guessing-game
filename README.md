@@ -7,7 +7,7 @@ The game has several features:
 
 ## Technologies
 
-The application was developed with Flask, Python3, HTML5, CSS3, and JavaScript.
+The application was developed with Flask, Python3, HTML5, CSS3, JavaScript and Bootstrap.
 
 ## Installation
 
