@@ -1,22 +1,133 @@
-[
-    {
-    "number": "0", 
-    "question": "The first question",
-    "answer": "The first answer"
-        
-    },
-    
-    {
-    "number": "1",
-    "question": "The second question",
-    "answer": "The second answer"
-        
-    },
-    
-    {
-    "number": "2",
-    "question": "The third question",
-    "answer": "The third answer"
-        
-    }
-]
+{
+    "riddles": [{
+            "round": "1",
+            "number": "0",
+            "question": "I have a ring, but no hands. I used to be plugged into the wall but now I follow you every where. What am I?",
+            "answer": "Telephone"
+
+        },
+
+        {
+            "round": "1",
+            "number": "1",
+            "question": "What season does Humpty Dumpty hate the most?",
+            "answer": "Fall"
+
+        },
+
+        {
+            "round": "1",
+            "number": "2",
+            "question": "I am black when clean and white when dirty. What am I?",
+            "answer": "Blackboard"
+
+        },
+        {
+            "round": "1",
+            "number": "3",
+            "question": "What runs around a house but does not move?",
+            "answer": "Fence"
+
+        },
+        {
+            "round": "1",
+            "number": "4",
+            "question": "Once you have it, you want to share it. Once you share it, you don’t have it. What is it?",
+            "answer": "Secret"
+
+        },
+        {
+            "round": "1",
+            "number": "5",
+            "question": "I start with M and end with X. I have a never ending amount of letters. What am I?",
+            "answer": "Mailbox"
+
+        }, {
+            "round": "2",
+            "number": "0",
+            "question": "What can elephants make that no other animals can make?",
+            "answer": "Elephants"
+
+        },
+
+        {
+            "round": "2",
+            "number": "1",
+            "question": "I have a head & no body, but I do have a tail. What am I?",
+            "answer": "Coin"
+
+        },
+
+        {
+            "round": "2",
+            "number": "2",
+            "question": "What do you call a bear without an ear?",
+            "answer": "B"
+
+        },
+        {
+            "round": "2",
+            "number": "3",
+            "question": "I can be made and I can be played. I can be cracked and I can be told. What am I?",
+            "answer": "Joke"
+
+        },
+        {
+            "round": "2",
+            "number": "4",
+            "question": "What has a bed but doesn’ t sleep and a mouth but never eats ? ",
+            "answer" : "River"
+
+        },
+        {
+            "round": "2",
+            "number": "5",
+            "question": "I am a container with no sides and no lid, yet golden treasure lays inside. What am I?",
+            "answer": "Egg"
+
+        }, {
+            "round": "3",
+            "number": "0",
+            "question": "Which letter of the alphabet contains the most water?",
+            "answer": "C"
+
+        },
+
+        {
+            "round": "3",
+            "number": "1",
+            "question": "What has a soul but doesn’t live and a tongue but can’t taste?",
+            "answer": "Shoe"
+
+        },
+
+        {
+            "round": "3",
+            "number": "2",
+            "question": "You buy me to eat, but never eat me. What am I?",
+            "answer": "Silverware"
+
+        },
+        {
+            "round": "3",
+            "number": "3",
+            "question": "What ends everything always?",
+            "answer": "G"
+
+        },
+        {
+            "round": "3",
+            "number": "4",
+            "question": "The maker doesn’t want it, the buyer doesn’t use it and the user doesn’t know it. What is it?",
+            "answer": "Coffin"
+
+        },
+        {
+            "round": "3",
+            "number": "5",
+            "question": "You go at red and stop at green. What am I?",
+            "answer": "Watermelon"
+
+        }
+    ]
+}

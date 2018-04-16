@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Riddle Game</title>
-
+    
     <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/clean-blog.css') }}" type="text/css" />
-
+   
 </head>
-
 <body>
-
+    
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('index') }}">Riddle Game</a>
         </div>
     </nav>
-
+    
     <!-- Page Header -->
     <header>
         <div class=" callout-container">
             <div class="site-heading">
                 <br><br><br><br><br><br><br><br>
                 <div class="form">
-                    <h1>Please Enter The Number of Players</h1>
+                    <h1>Player {{ player }}: Please Enter Your Name</h1>
                     <form method="POST">
                         <br>
-                        <input type="number" class="form-control" placeholder="Please Enter The Number of Players" name="playernum" id="playernum" required data-validation-required-message="Please Enter The Number of Players.">
+                        <input type="text" class="form-control" placeholder="Please Enter Your Name" name="username" id="username" required data-validation-required-message="Type Your Answer.">
                         <br><br>
-                        <button type="submit" class="btn btn-primary" id="sendPlayernumButton">Submit Number of Players</button>
+                        <button type="submit" class="btn btn-primary" id="sendUsernameButton">Submit Username</button>
                 </div>
             </div>
         </div>
