@@ -282,6 +282,12 @@ def init_riddles(filename):
         new_file.close()
         return check_in_file(filename, data["riddles"][0]["answer"])
 
+def init_game():
+    # Initialises game #
+    init_riddles("data/riddles.json")
+    setup_leaderboard()
+    clear_text_file("data/users.txt")
+
 
 
     

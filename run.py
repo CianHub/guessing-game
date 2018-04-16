@@ -10,7 +10,7 @@ try:
 except NameError:
     to_unicode = str
 from operator import itemgetter
-from functions import write_to_file, check_in_file, clear_text_file, print_content_in_list, check_answer, store_incorrect_answers, right_or_wrong, question_selector, increase_user_score, add_to_leaderboard, order_leaderboard, setup_leaderboard, next_player, leaderboard_len, next_round, reset_turn, q_update, get_player_name, question_update, random_number_generator, init_riddles, get_player_score, random_number_generator_init
+from functions import write_to_file, check_in_file, clear_text_file, print_content_in_list, check_answer, store_incorrect_answers, right_or_wrong, question_selector, increase_user_score, add_to_leaderboard, order_leaderboard, setup_leaderboard, next_player, leaderboard_len, next_round, reset_turn, q_update, get_player_name, question_update, random_number_generator, init_riddles, get_player_score, random_number_generator_init, init_game
 
 app = Flask(__name__)
 
@@ -19,9 +19,7 @@ app = Flask(__name__)
 @app.route('/', methods=["GET", "POST"])
 def index():
     # User(s) enter the number of players in the game #
-    init_riddles("data/riddles.json")
-    setup_leaderboard()
-    clear_text_file("data/users.txt")
+    init_game()
     if request.method == "POST":
         #if request.form["playernum"] > 4:
             # Code about error too many players #
