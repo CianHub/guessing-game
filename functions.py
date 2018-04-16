@@ -5,6 +5,8 @@ import json
 from datetime import datetime
 import io
 from operator import itemgetter
+from random import randint
+
 
 # ..................................General Functions
 
@@ -40,6 +42,18 @@ def print_content_in_list(filename):
  
 # ..................................Riddle Game Functions
 
+def get_player_name(position):
+    # Gets the players name from the ordered leaderboard #
+    leaderboard = order_leaderboard()
+    player_name = leaderboard[position]["username"]
+    return player_name
+
+def get_player_score(position):
+    # Gets the players score from the ordered leaderboard #
+    leaderboard = order_leaderboard()
+    player_score = int(leaderboard[position]["score"])
+    return player_score
+    
 def check_answer(answer,rnumber, question):
     #Checks if the answer to the riddle is correct#
     with open("data/riddles.json", "r") as riddles:
@@ -76,17 +90,6 @@ def next_player(username, qnumber):
                 username = json_decoded['leaderboard'][i]["username"]
                 return username
   
-def question_selector(question, rnumber):
-    # Selects the current question #
-    riddle = {}
-    with open("data/riddles.json", "r") as content:
-        data = json.load(content)
-        for i in range(len(data['riddles'])):
-            if question == data['riddles'][i]["number"] and rnumber == data['riddles'][i]["round"]:
-                riddle = data['riddles'][i]["question"]
-                print (data['riddles'][i]["question"])
-                return riddle
-            
 def increase_user_score(username):
     # Increments a user's score #
     with open("data/leaderboard.json", "r") as json_file:
@@ -122,11 +125,17 @@ def order_leaderboard():
         sorted_leaderboard = sorted(json_decoded['leaderboard'], reverse=True, key=itemgetter("score"))
         return sorted_leaderboard
         
-def leaderboard_len(leaderboard):
+def leaderboard_len(filename):
     # Gets the length of the leaderboard #
-    with open(leaderboard, "r") as json_file:
+    with open(filename, "r") as json_file:
         json_decoded = json.load(json_file)
         return len(json_decoded['leaderboard'])
+        
+def riddle_len(filename):
+    # Gets the length of the riddle file #
+    with open(filename, "r") as json_file:
+        json_decoded = json.load(json_file)
+        return len(json_decoded['riddles'])
         
 def next_round(rnumber):
     # Increments the rnumber #
@@ -144,17 +153,136 @@ def q_update(qnumber):
     qnumber = new_q
     return qnumber
 
-def question_update(question):
-    # Changes the current question number #
-    next_question = str(int(question) + 1)
-    question = next_question
+def random_number_generator(json_decoded):
+    # Generates a random number from the range of the copy of the riddle file #
+    next_question = randint(0, (len(json_decoded["riddles"]) - 1))
+    question = str(next_question)
     return question
 
-def get_winner():
-    # Gets the winner from the ordered leaderboard #
-    leaderboard = order_leaderboard()
-    winner = leaderboard[0]["username"]
-    return winner
+def random_number_generator_init():
+    # Generates a random number from the range of the riddle file #
+    next_question = randint(0, (riddle_len('data/riddles.json') - 1))
+    question = str(next_question)
+    return question
+    
+def question_update(question):
+    # Changes the current question number and removes previous question from selection #
+    with open("data/riddles.json", "r") as json_file:
+        json_decoded = json.load(json_file)
+        for i in range(len(json_decoded['riddles'])):
+            if question in json_decoded['riddles'][i]["number"]:
+                del json_decoded['riddles'][i]
+                next_question = random_number_generator(json_decoded)
+                question = next_question
+                with open("data/riddles.json", 'w') as new_file:
+                    json.dump(json_decoded, new_file)
+                    json_file.close
+                    new_file.close
+                    return question
+       
+def question_selector(question, rnumber):
+    # Selects the corresponding question #
+    riddle = {}
+    with open("data/riddles.json", "r") as content:
+        data = json.load(content)
+        for i in range(len(data['riddles'])):
+            if question == data['riddles'][i]["number"]:
+                riddle = data['riddles'][i]["question"]
+                return riddle
+
+def init_riddles(filename):
+    # Initialises the riddles file #
+    data = {"riddles": 
+        [{
+            "number": "0",
+            "question": "I have a ring, but no hands. I used to be plugged into the wall but now I follow you every where. What am I?",
+            "answer": "Telephone"},{
+            "number": "1",
+            "question": "What season does Humpty Dumpty hate the most?",
+            "answer": "Fall"
+        },{
+            "number": "2",
+            "question": "I am black when clean and white when dirty. What am I?",
+            "answer": "Blackboard"
+
+        },{
+            "number": "3",
+            "question": "What runs around a house but does not move?",
+            "answer": "Fence"
+
+        },{
+            "number": "4",
+            "question": "Once you have it, you want to share it. Once you share it, you don't have it. What is it?",
+            "answer": "Secret"
+
+        },{
+            "number": "5",
+            "question": "I start with M and end with X. I have a never ending amount of letters. What am I?",
+            "answer": "Mailbox"}, {
+            "number": "6",
+            "question": "What can elephants make that no other animals can make?",
+            "answer": "Elephants"
+
+        },{
+            "number": "7",
+            "question": "I have a head & no body, but I do have a tail. What am I?",
+            "answer": "Coin"
+
+        },{
+            "number": "8",
+            "question": "What do you call a bear without an ear?",
+            "answer": "B"
+
+        },{
+            "number": "9",
+            "question": "I can be made and I can be played. I can be cracked and I can be told. What am I?",
+            "answer": "Joke"
+
+        },{
+            "number": "10",
+            "question": "What has a bed but doesn't sleep and a mouth but never eats ? ",
+            "answer" : "River"
+
+        },{
+            "number": "11",
+            "question": "I am a container with no sides and no lid, yet golden treasure lays inside. What am I?",
+            "answer": "Egg"},{
+            "number": "12",
+            "question": "Which letter of the alphabet contains the most water?",
+            "answer": "C"
+
+        },{
+            "number": "13",
+            "question": "What has a soul but doesn't live and a tongue but can't taste?",
+            "answer": "Shoe"
+
+        },{
+            "number": "14",
+            "question": "You buy me to eat, but never eat me. What am I?",
+            "answer": "Silverware"
+
+        },{
+            "number": "15",
+            "question": "What ends everything always?",
+            "answer": "G"
+
+        },{
+            "number": "16",
+            "question": "The maker doesn't want it, the buyer doesn't use it and the user doesn't know it. What is it?",
+            "answer": "Coffin"
+
+        },{
+            "number": "17",
+            "question": "You go at red and stop at green. What am I?",
+            "answer": "Watermelon"
+
+        }]}
+    with open(filename, 'w') as new_file:
+        json.dump(data, new_file)
+        new_file.close()
+        return check_in_file(filename, data["riddles"][0]["answer"])
 
 
-        
+
+    
+    
