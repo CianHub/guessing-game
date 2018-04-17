@@ -11,14 +11,6 @@
 </head>
 
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}">Riddle Game</a>
-        </div>
-    </nav>
-
     <!-- Page Header -->
     <header>
         <div class=" callout-container">
@@ -31,7 +23,7 @@
                     <h1> Round {{rnumber}}: {{ username.title() }}'s Turn</h1>
                     <br>
                     <br>
-                    <h3>{{ riddle }}</h3>
+                    <h3>Question: {{ riddle }}</h3>
                     <form method="POST">
                         <br>
                         <br>
@@ -40,9 +32,10 @@
                         <p>(Hint: Answer With One Word e.g. Fence)</p>
                         <br>
                         <button type="submit" class="btn btn-primary" id="sendAnswerButton">Submit Your Answer</button>
+                        <button type="button" class="btn btn-secondary"><a href="{{ url_for('index') }}">Reset Game</a></button>
+
                     </form>
-                    <br> 
-                    {% for answer in incorrect_answers %}
+                    <br> {% for answer in incorrect_answers %}
                     <p>{{ answer }}</p>
                     {% endfor %}
                 </div>

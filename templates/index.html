@@ -11,16 +11,13 @@
 </head>
 
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}">Riddle Game</a>
-        </div>
-    </nav>
-
     <!-- Page Header -->
     <header>
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+        <div id="flash" class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert"> &times;</button> {{ message }}
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
         <div class=" callout-container">
             <div class="site-heading">
                 <br><br><br><br><br><br><br><br>
@@ -28,17 +25,21 @@
                     <h1>Please Enter The Number of Players</h1>
                     <form method="POST">
                         <br>
-                        <input type="number" class="form-control" placeholder="Please Enter The Number of Players" name="playernum" id="playernum" required data-validation-required-message="Please Enter The Number of Players.">
+                        <input type="number" class="form-control" placeholder="Please Enter The Number of Players (Max. 4  Min. 1)" name="playernum" id="playernum" required data-validation-required-message="Please Enter The Number of Players (Max. 4).">
                         <br><br>
                         <button type="submit" class="btn btn-primary" id="sendPlayernumButton">Submit Number of Players</button>
+                        <button type="button" class="btn btn-secondary" ><a href="{{ url_for('index') }}">Reset Game</a></button>
                 </div>
+
             </div>
+
         </div>
     </header>
-    
+
     <!-- Bootstrap core JavaScript -->
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    
+
 </body>
+
 </html>

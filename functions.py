@@ -276,6 +276,19 @@ def init_riddles(filename):
             "question": "You go at red and stop at green. What am I?",
             "answer": "Watermelon"
 
+        },
+        {
+            "number": "18",
+            "question": "What do you call a three humped camel?",
+            "answer": "Pregnant"
+        },{
+            "number": "19",
+            "question": "What do you get when you mix a snowman and a wolf?",
+            "answer": "Frostbite"
+        }, {
+            "number": "20",
+            "question": "Everyone has me except for a few. You may not be able to identify me but I can always identify you. What am I?",
+            "answer": "Fingerprints"
         }]}
     with open(filename, 'w') as new_file:
         json.dump(data, new_file)

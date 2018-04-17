@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Riddle Game</title>
-    
+
     <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/clean-blog.css') }}" type="text/css" />
-   
+
 </head>
+
 <body>
-    
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}">Riddle Game</a>
-        </div>
-    </nav>
-    
-    <!-- Page Header -->
     <header>
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+        <div id="flash" class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert"> &times;</button> {{ message }}
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
         <div class=" callout-container">
             <div class="site-heading">
                 <br><br><br><br><br><br><br><br>
@@ -29,14 +27,17 @@
                         <input type="text" class="form-control" placeholder="Please Enter Your Name" name="username" id="username" required data-validation-required-message="Type Your Answer.">
                         <br><br>
                         <button type="submit" class="btn btn-primary" id="sendUsernameButton">Submit Username</button>
+                        <button type="button" class="btn btn-secondary"><a href="{{ url_for('index') }}">Reset Game</a></button>
+
                 </div>
             </div>
         </div>
     </header>
-    
+
     <!-- Bootstrap core JavaScript -->
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    
+
 </body>
+
 </html>
