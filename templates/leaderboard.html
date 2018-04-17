@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <title>Riddle Game</title>
+    <!-- Title -->
+    <title>Riddle-Me-This</title>
 
     <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" type="text/css" />
@@ -11,8 +12,12 @@
 </head>
 
 <body>
+    
     <!-- Page Header -->
     <header>
+        
+        <!-- Main Content -->
+
         <div class=" callout-container">
             <br><br><br><br>
             <div class="table-responsive">
@@ -47,8 +52,6 @@
                     </table>
                     <br>
                     <button type="button" class="btn btn-secondary"><a href="{{ url_for('index') }}">Play Again</a></button>
-
-
                 </div>
             </div>
         </div>

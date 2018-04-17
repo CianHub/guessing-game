@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <title>Riddle Game</title>
+    <!-- Title -->
+    <title>Riddle-Me-This</title>
 
     <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" type="text/css" />
@@ -11,15 +12,24 @@
 </head>
 
 <body>
+    
+    <!-- Page Header -->
+
     <header>
+        
+         <!-- Error Message -->
         {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
         <div id="flash" class="alert alert-warning">
             <button type="button" class="close" data-dismiss="alert"> &times;</button> {{ message }}
         </div>
         {% endfor %} {% endif %} {% endwith %}
+        
+        <!-- Main Content -->
         <div class=" callout-container">
             <div class="site-heading">
                 <br><br><br><br><br><br><br><br>
+                
+                <!-- Form -->
                 <div class="form">
                     <h1>Player {{ player }}: Please Enter Your Name</h1>
                     <form method="POST">
