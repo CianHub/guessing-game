@@ -5,13 +5,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-@font-face {
 
-  /* Imports non-google font */
-  font-family: "SqueakyChalkSound";
-  src: url("SqueakyChalkSound.ttf");
-
-}
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -4959,7 +4953,6 @@ tbody.collapse.show {
 .alert {
   position: relative;
   padding: 0.75rem 1.25rem;
-  margin-bottom: 1rem;
   border: 1px solid transparent;
   border-radius: 0.25rem;
 }
