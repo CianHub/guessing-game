@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Title -->
+    <title>Riddle-Me-This</title>
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/clean-blog.css') }}" type="text/css" />
+
+</head>
+
+<body>
+    
+    <!-- Page Header -->
+
+    <header>
+        
+         <!-- Error Message -->
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+        <div id="flash" class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert"> &times;</button> {{ message }}
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+        
+        <!-- Main Content -->
+        <div class=" callout-container">
+            <div class="site-heading">
+                <br><br><br><br><br><br><br><br>
+                
+                <!-- Form -->
+                <div class="form">
+                    <h1>Player {{ player }}: Please Enter Your Name</h1>
+                    <form method="POST">
+                        <br>
+                        <input type="text" class="form-control" placeholder="Please Enter Your Name" name="username" id="username" required data-validation-required-message="Type Your Answer.">
+                        <br><br>
+                        <button type="submit" class="btn btn-primary" id="sendUsernameButton">Submit Username</button>
+                        <button type="button" class="btn btn-secondary"><a href="{{ url_for('index') }}">Reset Game</a></button>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/jquery/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+</body>
+
+</html>

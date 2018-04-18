@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Title -->
+    <title>Riddle-Me-This</title>
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/clean-blog.css') }}" type="text/css" />
+
+</head>
+
+<body>
+
+    <!-- Page Header -->
+    <header>
+        
+        <!-- Main Content -->
+
+        <div class=" callout-container">
+            <div class="site-heading">
+                <br><br><br><br>
+                
+                <!-- Form -->
+                <div class="form">
+                    <h1> Round {{rnumber}}: {{ username.title() }}'s Turn</h1>
+                    <br>
+                    <br>
+                    <h3>Question: {{ riddle }}</h3>
+                    <form method="POST">
+                        <br>
+                        <br>
+                        <input type="text" class="form-control" placeholder="Type Your Answer" name="answer" id="answer" required data-validation-required-message="Type Your Answer.">
+                        <br>
+                        <p>(Hint: Answer With One Word e.g. Fence)</p>
+                        <br>
+                        <button type="submit" class="btn btn-primary" id="sendAnswerButton">Submit Your Answer</button>
+                        <button type="button" class="btn btn-secondary"><a href="{{ url_for('index') }}">Reset Game</a></button>
+                    </form>
+                    
+                    <!-- Incorrect Answers -->
+                    <br> {% for answer in incorrect_answers %}
+                    <p>{{ answer }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>
