@@ -37,19 +37,21 @@ In the development of this application testing almost entirely consisted of auto
 
 I utlised a TDD(Test Driven Development Approach) throughout much of the development of the application. This led to simpler, more readable code and accelerated the development. By having a clearly defined and testable end result, I found it an easier process to write my functions. The test_leaderboard_len('filename') function is a very simple function that was written in this manner, where being clearly able to test the ouput greatly sped up the process.
 
-def test_leaderboard_len(self):
+```def test_leaderboard_len(self):
         # Test if function returns length of the leaderboard in int format #
         assert type(leaderboard_len('data/leaderboard.json')) is int
+ ```
 
 Similiarly while working on the increase_user_score(username) function, I found this approach beneficial as the function works in tandem with several others in particular those related to the leaderboard. Using TDD made it easier to isolate the entire process related to the function I was writing and better visualise what I was trying to achieve. E.g. In the test below I was able to isolate the process of adding a user to the leaderboard and increasing their score from start to finish without the distraction of the rest of the application.
 
-def test_increase_user_score(self):
+```def test_increase_user_score(self):
         # Test if function increases the users score on the leaderboard #
         # add_to_leaderboard initialises a new users score at 0, so new user Petey will have a score of 0 to start with #
         add_to_leaderboard("Petey")
         self.assertEqual(increase_user_score("Petey"), 1)
         self.assertGreater(increase_user_score('Petey'), 0)
         self.assertNotEqual(increase_user_score('Petey'), 0)
+```
 
 ## Deployment
 
