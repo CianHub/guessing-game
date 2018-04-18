@@ -57,4 +57,4 @@ def test_increase_user_score(self):
 
 ## Deployment
 
-The application was deployed to Heroku and can be viewed at: https://riddle-me-this-game.herokuapp.com/
+The application was deployed to Heroku and can be viewed at: <https://riddle-me-this-game.herokuapp.com/>
