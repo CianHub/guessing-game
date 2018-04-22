@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block head %} {{ super() }} {%endblock%} {% block content %}
+
+<body>
+    <!-- Main Content -->
+    <div class="content">
+        <div class=" callout-container">
+            {% if winner_score > runner_up_score %}
+            <img class="image" src="/static/img/crown.png">
+            <h1> {{ winner }} Wins!</h1>
+            {% else %}
+            <img class="image" src="/static/img/crown.png">
+            <h1> It's A Draw!</h1>
+            {% endif %}
+            <div class="table-responsive">
+                <div class="leaderboard">
+                    <!-- Leaderboard -->
+                    <h3>Leaderboard:</h3>
+                    <br>
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in leaderboard %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.score }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href = '{{ url_for('index') }}'">Play Again</button>
+                </div>
+            </div>
+        </div>
+        </header>
+        {% endblock %} {% block footer %} {% endblock %}
+</body>
+</html>
