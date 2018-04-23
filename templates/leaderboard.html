@@ -1,36 +1,20 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <!-- Title -->
-    <title>Riddle-Me-This</title>
-
-    <!-- CSS Stylesheets -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/clean-blog.css') }}" type="text/css" />
-
-</head>
+{% extends "base.html" %} {% block head %} {{ super() }} {%endblock%} {% block content %}
 
 <body>
-    
-    <!-- Page Header -->
-    <header>
-        
-        <!-- Main Content -->
-
+    <!-- Main Content -->
+    <div class="content">
         <div class=" callout-container">
-            <br><br><br><br>
+            {% if winner_score > runner_up_score %}
+            <img class="image" src="/static/img/crown.png">
+            <h1> {{ winner }} Wins!</h1>
+            {% else %}
+            <img class="image" src="/static/img/crown.png">
+            <h1> It's A Draw!</h1>
+            {% endif %}
             <div class="table-responsive">
-                <div class="site-heading">
-                    {% if winner_score > runner_up_score %}
-                    <h1> {{ winner }} Wins!</h1>
-                    {% else %}
-                    <h1> It's A Draw!</h1>
-                    {% endif %}
-                    <br>
-                    <img class="img-responsive" src="./static/img/win.png">
-                    <br><br><br>
-                    <h2>Leaderboard:</h2>
+                <div class="leaderboard">
+                    <!-- Leaderboard -->
+                    <h3>Leaderboard:</h3>
                     <br>
                     <table class="table ">
                         <thead>
@@ -51,15 +35,11 @@
                         </tbody>
                     </table>
                     <br>
-                    <button type="button" class="btn btn-secondary"><a href="{{ url_for('index') }}">Play Again</a></button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href = '{{ url_for('index') }}'">Play Again</button>
                 </div>
             </div>
         </div>
-    </header>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="/static/jquery/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        </header>
+        {% endblock %} {% block footer %} {% endblock %}
 </body>
-
 </html>

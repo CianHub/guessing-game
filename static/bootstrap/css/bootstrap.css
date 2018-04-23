@@ -1950,6 +1950,7 @@ pre code {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  padding-top: 1.5em;
 }
 
 .table-responsive > .table-bordered {

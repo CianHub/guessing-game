@@ -1,34 +1,17 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <!-- Title -->
-    <title>Riddle-Me-This</title>
-
-    <!-- CSS Stylesheets -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/clean-blog.css') }}" type="text/css" />
-
-</head>
+{% extends "base.html" %} {% block head %} {{ super() }} {%endblock%} {% block content %}
 
 <body>
-    
-    <!-- Page Header -->
-    <header>
-        
+    <!-- Main Content -->
+    <div class="content">
         <!-- Error Message -->
         {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
         <div id="flash" class="alert alert-warning">
             <button type="button" class="close" data-dismiss="alert"> &times;</button> {{ message }}
         </div>
         {% endfor %} {% endif %} {% endwith %}
-        
-        <!-- Main Content -->
+        <!-- Form -->
         <div class=" callout-container">
             <div class="site-heading">
-                <br><br><br><br><br><br><br><br>
-                
-                <!-- Form -->
                 <div class="form">
                     <h1>Please Enter The Number of Players</h1>
                     <form method="POST">
@@ -36,15 +19,13 @@
                         <input type="number" class="form-control" placeholder="Please Enter The Number of Players (Max. 4  Min. 1)" name="playernum" id="playernum" required data-validation-required-message="Please Enter The Number of Players (Max. 4).">
                         <br><br>
                         <button type="submit" class="btn btn-primary" id="sendPlayernumButton">Submit Number of Players</button>
-                        <button type="button" class="btn btn-secondary"><a href="{{ url_for('index') }}">Reset Game</a></button>
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href = '{{ url_for('index') }}'">Reset Game</button>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+    {% endblock %} {% block footer %} {% endblock %}
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="/static/jquery/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 </body>
 

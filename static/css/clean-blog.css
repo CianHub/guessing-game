@@ -5,7 +5,20 @@
   src: url("SqueakyChalkSound.ttf");
 
 }
+.image{
+  width: 25%;
+  padding-top: 3em;
+}
+.site-heading {
+  padding-top: 10em;
+  
+}
 
+.button{
+  padding-top: 3em;
+  padding-bottom: 1em;
+  
+}
 .callout-container {
   height: 100vh;
   background-image: url('https://images2.alphacoders.com/553/553697.jpg');
@@ -14,11 +27,12 @@
   -o-background-size: cover;
   background-size: cover;
   background-position: center center;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-attachment: fixed;
   align-items: center;
   width: 100vw;
   position: relative;
+  top: 50%;
 }
 
 body {
@@ -207,8 +221,6 @@ img::-moz-selection {
   }
 }
 
-.masthead {}
-
 .overlay {
   position: absolute;
   top: 0;
@@ -219,63 +231,14 @@ img::-moz-selection {
   opacity: 0.5;
 }
 
-.masthead .page-heading,
-.masthead .post-heading,
-.masthead .site-heading {
-  padding: 200px 0 150px;
-  color: white;
-}
 
 @media only screen and (min-width: 768px) {
-  .masthead .page-heading,
-  .masthead .post-heading,
-  .masthead .site-heading {
+  .site-heading {
     padding: 200px 0;
   }
 }
 
-.masthead .page-heading,
-.masthead .site-heading {
-  text-align: center;
-}
 
-.masthead .page-heading h1,
-.masthead .site-heading h1 {
-  font-size: 50px;
-  margin-top: 0;
-}
-
-.masthead .page-heading .subheading,
-.masthead .site-heading .subheading {
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 1.1;
-  display: block;
-  margin: 10px 0 0;
-}
-
-@media only screen and (min-width: 768px) {
-  .masthead .page-heading h1,
-  .masthead .site-heading h1 {
-    font-size: 80px;
-  }
-}
-
-.masthead .post-heading h1 {
-  font-size: 35px;
-}
-
-.masthead .post-heading .meta,
-.masthead .post-heading .subheading {
-  line-height: 1.1;
-  display: block;
-}
-
-.masthead .post-heading .subheading {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 10px 0 30px;
-}
 
 .masthead .post-heading .meta {
   font-size: 20px;
@@ -483,5 +446,3 @@ input {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 }
-
-

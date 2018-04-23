@@ -16,14 +16,12 @@ The application was developed with Flask, Python3, HTML5, CSS3, JavaScript, JQue
 
 ## Installation
 
-1. Download the respository from GitHub.
-2. Install Python3 (Found Here: <https://www.python.org/downloads/>)
-3. Install the pip and virtualenv packages (See here: <https://packaging.python.org/guides/installing-using-pip-and-virtualenv/>)
-4. Go to the repository folder from step 1. ($ cd repositoryFolder)
-5. Setup the virtualenv instance for the project ($ python3* -m virtualenv projectName)
-6. Activate the virtualenv instance ($ . projectName/bin/activate on Mac/Linux or $ projectName\Scripts\activate on Windows)
-7. Install required packages from requirements.txt (pip install -r requirements.txt)
-8. Run run.py ($ python3 run.py)
+1. Ensure Python3, pip and Virtualenv are installed.
+2. Clone repository.
+4. Go to the repository folder
+5. Setup the virtualenv instance for the project and activate the virtualenv instance 
+7. Install required packages from requirements.txt 
+8. Run run.py 
 
 *Note: This is for Mac OS/Linux on Windows "python3" should be replaced with "py"
 
