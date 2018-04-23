@@ -12,16 +12,19 @@ from random import randint
 def setup_leaderboard():
     # Initialises the leaderboard #
     data = {"leaderboard": []}
-    with open("data/leaderboard.json", 'w') as new_file:
-        json.dump(data, new_file)
+    write_json('data/leaderboard.json', data)
+    json_decoded = load_json('data/leaderboard.json', 'r')
+    if data == json_decoded:
+        return True
 
 def init_riddles(filename):
     # Initialises the riddles file #
     data = load_json('data/riddles_backup.json', 'r')
-    if write_json('data/riddles.json', data):
+    write_json(filename, data)
+    json_decoded = load_json(filename, 'r')
+    if data == json_decoded:
         return True
         
-
 def init_game():
     # Initialises game #
     init_riddles("data/riddles.json")
@@ -57,15 +60,11 @@ def write_json(filename, data):
     # Writes to a JSON File #
     with open(filename, 'w') as file:
         json.dump(data, file)
-        file.close
-        if data == file:
-            return True
-
-def open_file(filename, letter):
-    # Opens a File #
-    with open(filename, letter) as file:
-        return file
-        
+        file.close()
+        json_decoded = load_json(filename, 'r')
+    if data == json_decoded:
+        return True
+    
 def clear_text_file(filename):
     # Clears a text file #
     with open(filename, 'w') as f:
@@ -96,15 +95,13 @@ def random_number_generator():
 
 def leaderboard_len(filename):
     # Gets the length of the leaderboard #
-    with open(filename, "r") as json_file:
-        json_decoded = json.load(json_file)
-        return len(json_decoded['leaderboard'])
+    json_decoded = load_json(filename, "r")
+    return len(json_decoded['leaderboard'])
 
 def riddle_len(filename):
     # Gets the length of the riddle file #
-    with open(filename, "r") as json_file:
-        json_decoded = json.load(json_file)
-        return len(json_decoded['riddles'])
+    json_decoded = load_json(filename, "r")
+    return len(json_decoded['riddles'])
 
 def get_player_name(position):
     # Get players name from ordered leaderboard #
@@ -133,8 +130,7 @@ def next_round(rnumber):
 
 def reset_turn(qnumber):
     # Starts the turn cycle again #
-    qnumber = str(leaderboard_len
-    ("data/leaderboard.json") - 1)
+    qnumber = str(leaderboard_len("data/leaderboard.json") - 1)
     return qnumber
 
 def q_update(qnumber):
@@ -179,61 +175,48 @@ def next_player(username, qnumber):
 
 def increase_user_score(username, question):
     # Increments a user's score #
-    
     data = load_json('data/riddles.json', 'r')
     score = data['riddles'][int(question)]["points"]
-    print(score)
-
-    with open("data/leaderboard.json", "r") as json_file:
-        json_decoded = json.load(json_file)
-        for i in range(len(json_decoded['leaderboard'])):
-            if username in json_decoded['leaderboard'][i]["username"]:
-                json_decoded['leaderboard'][i]["score"] = json_decoded['leaderboard'][i]["score"] + score
-        with open("data/leaderboard.json", 'w') as new_file:
-            json.dump(json_decoded, new_file)
-            return json_decoded['leaderboard'][i]["score"]
+    json_decoded = load_json("data/leaderboard.json", "r")
+    for i in range(len(json_decoded['leaderboard'])):
+        if username in json_decoded['leaderboard'][i]["username"]:
+            json_decoded['leaderboard'][i]["score"] = json_decoded['leaderboard'][i]["score"] + score
+            if write_json("data/leaderboard.json", json_decoded):
+                return json_decoded['leaderboard'][i]["score"]
 
 def add_to_leaderboard(username):
     # Adds new user and a starting score to leaderboard #
-    with open("data/leaderboard.json", "r") as json_file:
-        json_decoded = json.load(json_file)
-        data = { 
-            "username": username, "score": 0, 
+    json_decoded = load_json("data/leaderboard.json", "r")
+    data = { 
+        "username": username, "score": 0, 
         "qnumber": str(len(json_decoded["leaderboard"]))
         }
-        json_decoded['leaderboard'].append(data)
-        with open("data/leaderboard.json", 'w') as new_file:
-            json.dump(json_decoded, new_file)
-            new_file.close()
-            return check_in_file("data/leaderboard.json", 
-            data["username"])
+    json_decoded['leaderboard'].append(data)
+    if write_json("data/leaderboard.json", json_decoded):
+        return True
 
 def order_leaderboard():
     # Orders the leaderboard according to score #
-    with open("data/leaderboard.json", "r") as json_file:
-        json_decoded = json.load(json_file)
-        sorted_leaderboard = sorted(json_decoded['leaderboard'], 
-        reverse=True, key=itemgetter("score"))
-        return sorted_leaderboard
+    json_decoded = load_json("data/leaderboard.json", "r")
+    sorted_leaderboard = sorted(json_decoded['leaderboard'], 
+    reverse=True, key=itemgetter("score"))
+    return sorted_leaderboard
 
 def decrement_score(question):
-    with open("data/riddles.json", "r") as json_file:
-        json_decoded = json.load(json_file)
-        json_decoded['riddles'][int(question)]["points"] = json_decoded['riddles'][int(question)]["points"] - 1
-        with open("data/riddles.json", 'w') as new_file:
-            json.dump(json_decoded, new_file)
-            return json_decoded['riddles'][int(question)]["points"]
+    json_decoded = load_json("data/riddles.json", "r")
+    json_decoded['riddles'][int(question)]["points"] = json_decoded['riddles'][int(question)]["points"] - 1
+    if write_json("data/riddles.json", json_decoded):
+        return json_decoded['riddles'][int(question)]["points"]
     
 # ....Answer Checking Functions
 
 def check_answer(answer, question):
     #Checks if the answer to the riddle is correct#
-    with open("data/riddles.json", "r") as riddles:
-        data = json.load(riddles)
-        if answer.title() == data['riddles'][int(question)]["answer"]: 
+    data = load_json("data/riddles.json", "r")
+    if answer.title() == data['riddles'][int(question)]["answer"]: 
             clear_text_file("data/incorrect_answers.txt")
             return True
-        else:
+    else:
             return False
             
 def store_incorrect_answers(username, answer):
