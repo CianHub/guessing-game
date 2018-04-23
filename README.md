@@ -7,7 +7,7 @@ Riddle-Me-This is a web application game that asks players to guess the answer t
 The application has several features:
 
 1. One to four players can chose their unique user name and compete to score points by answering riddles.
-2. The game lasts three rounds, a round length is one turn per player.
+2. The game lasts five rounds, a round length is one turn per player.
 3. Player scores are stored and displayed in a leaderboard when the game has ended.
 
 ## Technologies
@@ -22,8 +22,6 @@ The application was developed with Flask, Python3, HTML5, CSS3, JavaScript, JQue
 5. Setup the virtualenv instance for the project and activate the virtualenv instance 
 7. Install required packages from requirements.txt 
 8. Run run.py 
-
-*Note: This is for Mac OS/Linux on Windows "python3" should be replaced with "py"
 
 ## Testing
 
@@ -46,7 +44,6 @@ Similiarly while working on the increase_user_score(username) function, I found 
 ```
 def test_increase_user_score(self):
         # Test if function increases the users score on the leaderboard #
-        # add_to_leaderboard initialises a new users score at 0, so new user Petey will have a score of 0 to start with #
         add_to_leaderboard("Petey")
         self.assertEqual(increase_user_score("Petey"), 1)
         self.assertGreater(increase_user_score('Petey'), 0)
