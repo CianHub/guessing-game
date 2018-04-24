@@ -3,9 +3,11 @@
 import os
 import json
 from datetime import datetime
-from flask import Flask, redirect, render_template, request, flash
 import io
 from operator import itemgetter
+
+from flask import Flask, redirect, render_template, request, flash
+
 from functions import(
     write_to_file, check_in_file, clear_text_file,
     print_content_in_list, check_answer, store_incorrect_answers,
@@ -174,7 +176,7 @@ def leaderboard():
     winner_score = get_player_score(0)
     runner_up = "blank"
     runner_up_score = 0
-    if leaderboard_len("data/leaderboard.json") > 1:
+    if len(leaderboard) > 1:
         runner_up_score = get_player_score(1)
         runner_up = get_player_name(1)
     return render_template(

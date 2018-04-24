@@ -1,4 +1,3 @@
-{% block head %}
 <!DOCTYPE html>
 <html>
 
@@ -11,13 +10,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/clean-blog.css') }}" type="text/css" />
 
 </head>
-{% endblock %}
-<body>
-{% block content %}{% endblock %}
-</body>
 
-{% block footer %}
-<!-- Bootstrap core JavaScript -->
+<body>
+    {% block content %}{% endblock %}
+
+    <!-- Bootstrap core JavaScript -->
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-{% endblock %}
+</body>
+
+</html>

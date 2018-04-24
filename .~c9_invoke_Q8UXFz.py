@@ -28,8 +28,6 @@ def init_riddles(filename):
 def init_game():
     # Initialises game #
     init_riddles("data/riddles.json")
-    setup_leaderboard()
-    clear_text_file("data/users.txt")
     clear_text_file("data/incorrect_answers.txt")
 
 # ....General Functions
@@ -186,13 +184,13 @@ def increase_user_score(username, question):
 
 def add_to_leaderboard(username):
     # Adds new user and a starting score to leaderboard #
-    json_decoded = load_json('data/leaderboard.json', "r")
+    json_decoded = load_json("data/leaderboard.json", "r")
     data = { 
         "username": username, "score": 0, 
         "qnumber": str(len(json_decoded["leaderboard"]))
         }
     json_decoded['leaderboard'].append(data)
-    if write_json('data/leaderboard.json', json_decoded):
+    if write_json("data/leaderboard.json", json_decoded):
         return True
 
 def order_leaderboard():
