@@ -16,7 +16,7 @@ from functions import(
     next_player, leaderboard_len, next_round, reset_turn, q_update,
     get_player_name, question_update, random_number_generator_dependent,
     init_riddles, get_player_score, random_number_generator, init_game,
-    score_display, decrement_score, get_question_points
+    score_display, decrement_score, get_question_points, load_json, write_json, check_leaderboard, add_to_leaderboard_global, order_leaderboard_global
     )
 
 app = Flask(__name__)
@@ -47,21 +47,42 @@ def username(playernum):
     # User(s) enter their desired usernames #
     instruct_num = str(leaderboard_len("data/leaderboard.json") + 1)
     if request.method == "POST":
-        if not (
-            check_in_file(
-                "data/users.txt", request.form["username"].title())
-                ):
-            write_to_file(
-                "data/users.txt", request.form["username"].title() + "\n"
-                )
-            add_to_leaderboard(request.form["username"].title())
+        
+        if not (check_in_file("data/global_users.txt", request.form["username"].title())):
+            
+            # If not in global leaderboard #
+            
+            print("new user")
+            write_to_file("data/users.txt", request.form["username"].title() + "\n")
+            write_to_file("data/global_users.txt", request.form["username"].title() + "\n")
+            add_to_leaderboard(request.form["username"].title(), 'data/leaderboard.json')
+            add_to_leaderboard_global(request.form["username"].title(), 'data/global_leaderboard.json')
+            
             new_num = str(int(playernum) - 1)
             playernum = new_num
+            
+        
         else:
-            flash(
-                "Sorry Your Chosen Username Is Unavailable. Please Try Another"
-                )
-            return redirect("/setup" + '/' + playernum)
+            
+            if not (check_in_file("data/users.txt", request.form["username"].title())):
+                
+                # If in global but not in local leaderboard #
+                
+                print("existing user")
+                
+                write_to_file("data/users.txt", request.form["username"].title() + "\n")
+                add_to_leaderboard(request.form["username"].title(), 'data/leaderboard.json')
+                
+                new_num = str(int(playernum) - 1)
+                playernum = new_num
+            
+            else:
+                
+                # If in global and local leaderboards #
+                
+                flash("Sorry Your Chosen Username Is Unavailable. Please Try Another")
+                
+            
         if int(playernum) == 0:
                 qnumber = str(
                     leaderboard_len("data/leaderboard.json") - 1
@@ -72,18 +93,19 @@ def username(playernum):
                     '/' + '1' + '/' + qnumber + 
                     '/' + question
                     )
+        
         else:
             return redirect("setup" + '/' + playernum)
-    return render_template(
-        "username.html", player=instruct_num
-        )
- 
+            
+    return render_template("username.html", player=instruct_num)
+
 @app.route(
     '/<username>/<rnumber>/<qnumber>/<question>',
     methods=["GET", "POST"]
 )
 def riddle(username, rnumber, qnumber, question):
     # Questions are shown, can be answered and wrong answers are shown #
+    how_many_players = leaderboard_len('data/leaderboard.json')
     incorrect_answers = print_content_in_list("data/incorrect_answers.txt")
     heading = ""
     
@@ -96,22 +118,17 @@ def riddle(username, rnumber, qnumber, question):
     if request.method == "POST" and request.form["answer"]:
         return redirect(
             '/' + username + '/' + rnumber + '/' + qnumber + '/' +
-            question  + '/' + request.form["answer"]
-            )
-    elif request.method == "POST" and request.form["skip"] :
-        print("skip")
+            question  + '/' + request.form["answer"])
+            
+    """elif request.method == "POST" and request.form["skip"]:
         qnumber = q_update(qnumber)
         question = question_update(question)
-        
         if int(qnumber) == -1:
             rnumber = next_round(rnumber)
-            
             qnumber = reset_turn(qnumber)
             username = next_player(username, qnumber)
-            
             if int(rnumber) > 5:
                 return redirect("/leaderboard")
-            
             return redirect(
             '/' + username + '/' + rnumber + '/' + qnumber + '/' +
             question )
@@ -119,16 +136,14 @@ def riddle(username, rnumber, qnumber, question):
             username = next_player(username, qnumber)
             return redirect(
             '/' + username + '/' + rnumber + '/' + qnumber + '/' +
-            question )
+            question )"""
             
     return render_template("riddle.html", username=username, 
     incorrect_answers=incorrect_answers, riddle=riddle, rnumber= rnumber, 
-    heading=heading, score=score)
+    heading=heading, score=score, how_many_players=how_many_players)
     
 @app.route('/<username>/<rnumber>/<qnumber>/<question>/<answer>')
-def send_answer(
-    username, qnumber, answer, rnumber, question
-    ):
+def send_answer(username, qnumber, answer, rnumber, question):
     # Create a new answer and redirect back to the riddle page #
     if right_or_wrong(username, answer, question):
         qnumber = q_update(qnumber)
@@ -143,9 +158,7 @@ def send_answer(
             
     else:
         question_score = get_question_points(question)
-        print(question_score)
         if question_score <= 7:
-            print("Out Of Guesses")
             qnumber = q_update(qnumber)
             question = question_update(question)
                 
@@ -158,7 +171,6 @@ def send_answer(
                 username = next_player(username, qnumber)
 
         else:
-            print("Try Again")
             username = next_player(username, qnumber)
                 
     if int(rnumber) > 5:
@@ -171,12 +183,12 @@ def send_answer(
 def leaderboard():
     # Displays leaderboard and winner #
     number = 0
-    leaderboard = order_leaderboard()
+    leaderboard = order_leaderboard_global()
     winner = get_player_name(0)
     winner_score = get_player_score(0)
     runner_up = "blank"
     runner_up_score = 0
-    if len(leaderboard) > 1:
+    if len(order_leaderboard()) > 1:
         runner_up_score = get_player_score(1)
         runner_up = get_player_name(1)
     return render_template(

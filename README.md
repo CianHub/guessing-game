@@ -25,6 +25,11 @@ The application was developed with Flask, Python3, HTML5, CSS3, JavaScript, JQue
 
 ## Testing
 
+To run tests, in the CLI enter:
+```
+$ python -m unittest discover
+```
+
 ### Automated Testing
 
 In the development of this application testing almost entirely consisted of automated tests using the python unittest package. My approach to testing was to write my functions with testing in mind. This ensured that my functions were written to be "testable" and simplified as much as possible, while taking in parameters and returning measurable results, thus having a clear output to test.

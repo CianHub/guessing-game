@@ -29,8 +29,8 @@ def init_game():
     # Initialises game #
     init_riddles("data/riddles.json")
     setup_leaderboard()
-    clear_text_file("data/users.txt")
-    clear_text_file("data/incorrect_answers.txt")
+    clear_text_file("data/users.txt", "a")
+    clear_text_file("data/incorrect_answers.txt", "a")
 
 # ....General Functions
 
@@ -50,6 +50,14 @@ def check_in_file(filename, data):
         else:
             return False
 
+def check_leaderboard(data):
+    gameList = load_json('data/leaderboard.json', 'r')
+    for x in range(len(gameList)):
+        if data != gameList["leaderboard"][x]['username']:
+            return False
+        else:
+            return True
+
 def load_json(filename, letter):
     #Loads a JSON File #
     with open(filename, letter) as file:
@@ -65,12 +73,12 @@ def write_json(filename, data):
     if data == json_decoded:
         return True
     
-def clear_text_file(filename):
+def clear_text_file(filename, data):
     # Clears a text file #
     with open(filename, 'w') as f:
         f.write("")
         f.close()
-        return check_in_file(filename, "Test")
+        return check_in_file(filename, data)
 
 def print_content_in_list(filename):
     # Prints content from a specified file #
@@ -146,7 +154,7 @@ def question_update(question):
     next_question = random_number_generator_dependent(json_decoded)
     write_json('data/riddles.json', json_decoded)
     question = next_question
-    clear_text_file("data/incorrect_answers.txt")
+    clear_text_file("data/incorrect_answers.txt", 'a')
     return question
 
 def question_selector(question):
@@ -184,16 +192,44 @@ def increase_user_score(username, question):
             if write_json("data/leaderboard.json", json_decoded):
                 return json_decoded['leaderboard'][i]["score"]
 
-def add_to_leaderboard(username):
+def increase_user_score_global(username, question):
+    # Increments a user's score globally #
+    data = load_json('data/riddles.json', 'r')
+    score = data['riddles'][int(question)]["points"]
+    json_decoded = load_json("data/global_leaderboard.json", "r")
+    for i in range(len(json_decoded['leaderboard'])):
+        if username in json_decoded['leaderboard'][i]["username"]:
+            json_decoded['leaderboard'][i]["score"] = json_decoded['leaderboard'][i]["score"] + score
+            if write_json("data/global_leaderboard.json", json_decoded):
+                return json_decoded['leaderboard'][i]["score"]
+
+def add_to_leaderboard(username, filename):
     # Adds new user and a starting score to leaderboard #
-    json_decoded = load_json('data/leaderboard.json', "r")
+    json_decoded = load_json(filename, "r")
     data = { 
         "username": username, "score": 0, 
-        "qnumber": str(len(json_decoded["leaderboard"]))
+        "qnumber": str(len(json_decoded["leaderboard"])), 
         }
     json_decoded['leaderboard'].append(data)
-    if write_json('data/leaderboard.json', json_decoded):
+    if write_json(filename, json_decoded):
         return True
+        
+def add_to_leaderboard_global(username, filename):
+    # Adds new user and a starting score to leaderboard #
+    json_decoded = load_json(filename, "r")
+    data = { 
+        "username": username, "score": 0, 
+        }
+    json_decoded['leaderboard'].append(data)
+    if write_json(filename, json_decoded):
+        return True
+            
+def order_leaderboard_global():
+    # Orders the leaderboard according to score #
+    json_decoded = load_json("data/global_leaderboard.json", "r")
+    sorted_leaderboard = sorted(json_decoded['leaderboard'], 
+    reverse=True, key=itemgetter("score"))
+    return sorted_leaderboard
 
 def order_leaderboard():
     # Orders the leaderboard according to score #
@@ -207,14 +243,14 @@ def decrement_score(question):
     json_decoded['riddles'][int(question)]["points"] = json_decoded['riddles'][int(question)]["points"] - 1
     if write_json("data/riddles.json", json_decoded):
         return json_decoded['riddles'][int(question)]["points"]
-    
+
 # ....Answer Checking Functions
 
 def check_answer(answer, question):
     #Checks if the answer to the riddle is correct#
     data = load_json("data/riddles.json", "r")
     if answer.title() == data['riddles'][int(question)]["answer"]: 
-            clear_text_file("data/incorrect_answers.txt")
+            clear_text_file("data/incorrect_answers.txt" ,'a')
             return True
     else:
             return False
@@ -231,6 +267,7 @@ def right_or_wrong(username, answer, question):
     # Handles answer results #
     if check_answer(answer, question):
         increase_user_score(username, question)
+        increase_user_score_global(username, question)
         return True
     else:
         decrement_score(question)
