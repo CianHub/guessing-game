@@ -12,11 +12,13 @@ from functions import(
     next_player, leaderboard_len, next_round, reset_turn, q_update,
     get_player_name, question_update, random_number_generator_dependent,
     init_riddles, get_player_score, random_number_generator, init_game,
-    score_display, decrement_score, get_question_points, load_json, write_json, riddle_len
+    score_display, decrement_score, get_question_points, load_json, write_json, check_leaderboard, add_to_leaderboard_global, order_leaderboard_global, riddle_len, increase_user_score_global, order_leaderboard_global, clear_global_leaderboard
     )
  
 
 class test_game(unittest.TestCase):
+    
+    clear_global_leaderboard()
     
     # Test Suite #
       
@@ -86,16 +88,16 @@ class test_game(unittest.TestCase):
     def test_get_player_name(self):
         # Test if function gets a players name #
         setup_leaderboard()
-        add_to_leaderboard("Jason")
-        add_to_leaderboard("Zebra")
+        add_to_leaderboard("Jason",'data/leaderboard.json')
+        add_to_leaderboard("Zebra",'data/leaderboard.json')
         self.assertEqual(get_player_name(0), "Jason")
         self.assertEqual(get_player_name(1), "Zebra")
     
     def test_get_player_score(self):
         # Test if function gets a players name #
         init_game()
-        add_to_leaderboard("Jason")
-        add_to_leaderboard("Zebra")
+        add_to_leaderboard("Jason",'data/leaderboard.json')
+        add_to_leaderboard("Zebra",'data/leaderboard.json')
         increase_user_score("Zebra", '2')
         self.assertEqual(get_player_score(1), 0)
         self.assertEqual(get_player_score(0), 10)
@@ -117,8 +119,8 @@ class test_game(unittest.TestCase):
     def test_reset_turn(self):
         # Test if function returns the leaderboard_len() decremnted by 1 in str format #
         init_game()
-        add_to_leaderboard("Jason")
-        add_to_leaderboard("Zebra")
+        add_to_leaderboard("Jason",'data/leaderboard.json')
+        add_to_leaderboard("Zebra",'data/leaderboard.json')
         assert type(reset_turn('3')) is str
         self.assertEqual((int(reset_turn('2'))), 1)
     
@@ -148,38 +150,67 @@ class test_game(unittest.TestCase):
     def test_next_player(self):
         # Test that function returns the next username #
         init_game()
-        add_to_leaderboard("Jason")
-        add_to_leaderboard("Zebra")
+        add_to_leaderboard("Jason",'data/leaderboard.json')
+        add_to_leaderboard("Zebra",'data/leaderboard.json')
         self.assertEqual(next_player('Jason', '1'), 'Zebra')
     
     # ....Leaderboard Functions
     
     def test_increase_user_score(self):
         # Test if function increases the users score on the leaderboard #
+        clear_global_leaderboard()
         init_game()
-        add_to_leaderboard("Petey")
-        decrement_score('2')
+        add_to_leaderboard("Petey",'data/leaderboard.json')
+        decrement_score('3')
         self.assertEqual(increase_user_score("Petey", '1'), 10)
-        self.assertEqual(increase_user_score("Petey", '2'), 19)
+        self.assertEqual(increase_user_score("Petey", '3'), 19)
+    
+    def test_increase_user_score_global(self):
+        # Test if function increases the users score on the leaderboard #
+        clear_global_leaderboard()
+        init_game()
+        add_to_leaderboard_global("Petey",'data/global_leaderboard.json')
+        decrement_score('4')
+        self.assertEqual(increase_user_score_global("Petey", '1'), 10)
+        self.assertEqual(increase_user_score_global("Petey", '4'), 19)
     
     def test_add_to_leaderboard(self):
         # Test if function adds a new user to leaderboard #
         init_game()
-        self.assertEqual(add_to_leaderboard('Jon'), True)
-        self.assertEqual(add_to_leaderboard('Paul'), True)
-        self.assertEqual(add_to_leaderboard('Sarah'), True)
+        self.assertEqual(add_to_leaderboard('Jon', 'data/leaderboard.json'), True)
+        self.assertEqual(add_to_leaderboard('Paul','data/leaderboard.json'), True)
+        self.assertEqual(add_to_leaderboard('Sarah','data/leaderboard.json'), True)
+    
+    def test_add_to_leaderboard_global(self):
+        # Test if function adds a new user to leaderboard #
+        clear_global_leaderboard()
+        self.assertEqual(add_to_leaderboard_global('Jon','data/global_leaderboard.json'), True)
+        self.assertEqual(add_to_leaderboard_global('Paul','data/global_leaderboard.json'), True)
+        self.assertEqual(add_to_leaderboard_global('Sarah','data/global_leaderboard.json'), True)
     
     def test_order_leaderboard(self):
         # Test if function returns a rearranged version of the leaderboard list #
         init_game()
-        add_to_leaderboard("Jamie")
-        add_to_leaderboard("Petey")
+        add_to_leaderboard("Jamie",'data/leaderboard.json')
+        add_to_leaderboard("Petey",'data/leaderboard.json')
         increase_user_score("Petey", '1')
         with open("data/leaderboard.json", "r") as json_file:
             loaded_json = json.load(json_file)
             original_leaderboard = loaded_json['leaderboard']
             assert type(order_leaderboard()) is list
             self.assertNotEqual(order_leaderboard(), original_leaderboard)
+    
+    def test_order_leaderboard_global(self):
+        # Test if function returns a rearranged version of the leaderboard list #
+        clear_global_leaderboard()
+        add_to_leaderboard_global("Jamie",'data/global_leaderboard.json')
+        add_to_leaderboard_global("Petey",'data/global_leaderboard.json')
+        increase_user_score_global("Petey", '1')
+        with open("data/global_leaderboard.json", "r") as json_file:
+            loaded_json = json.load(json_file)
+            original_leaderboard = loaded_json['leaderboard']
+            assert type(order_leaderboard_global()) is list
+            self.assertNotEqual(order_leaderboard_global(), original_leaderboard)
         
     def test_decrement_score(self):
         # Tests if function decrements the points value of a question #
@@ -201,9 +232,9 @@ class test_game(unittest.TestCase):
     def test_right_or_wrong(self):
         # Test if function checks if an answer is right or wrong #
         init_game()
-        add_to_leaderboard("Jason")
-        add_to_leaderboard("Paul")
-        add_to_leaderboard("Eva")
+        add_to_leaderboard("Jason",'data/leaderboard.json')
+        add_to_leaderboard("Paul",'data/leaderboard.json')
+        add_to_leaderboard("Eva",'data/leaderboard.json')
         self.assertEqual(right_or_wrong("Jason","Telephone", '0'), True)
         self.assertEqual(right_or_wrong("Paul","The wrong answer", '2'), None)
         self.assertEqual(right_or_wrong("Eva","Fall", '1'), True)

@@ -16,6 +16,14 @@ def setup_leaderboard():
     json_decoded = load_json('data/leaderboard.json', 'r')
     if data == json_decoded:
         return True
+        
+def clear_global_leaderboard():
+    # Initialises the leaderboard #
+    data = {"leaderboard": []}
+    write_json('data/global_leaderboard.json', data)
+    json_decoded = load_json('data/global_leaderboard.json', 'r')
+    if data == json_decoded:
+        return True
 
 def init_riddles(filename):
     # Initialises the riddles file #
