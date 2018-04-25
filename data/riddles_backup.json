@@ -3,30 +3,35 @@
             "number": "0",
             "question": "I have a ring, but no hands. I used to be plugged into the wall but now I follow you every where. What am I?",
             "answer": "Telephone",
-            "points": 10
+            "points": 10,
+            "turns": 3
         },
         {
             "number": "1",
             "question": "What season does Humpty Dumpty hate the most?",
             "answer": "Fall",
-            "points": 10
+            "points": 10,
+            "turns": 3
         }, {
             "number": "2",
             "question": "I am black when clean and white when dirty. What am I?",
             "answer": "Blackboard",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "3",
             "question": "What runs around a house but does not move?",
             "answer": "Fence",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "4",
             "question": "Once you have it, you want to share it. Once you share it, you don't have it. What is it?",
             "answer": "Secret",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "5",
@@ -37,89 +42,104 @@
             "number": "6",
             "question": "What can elephants make that no other animals can make?",
             "answer": "Elephants",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "7",
             "question": "I have a head & no body, but I do have a tail. What am I?",
             "answer": "Coin",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "8",
             "question": "What do you call a bear without an ear?",
             "answer": "B",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "9",
             "question": "I can be made and I can be played. I can be cracked and I can be told. What am I?",
             "answer": "Joke",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "10",
             "question": "What has a bed but doesn't sleep and a mouth but never eats ? ",
             "answer": "River",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "11",
             "question": "I am a container with no sides and no lid, yet golden treasure lays inside. What am I?",
             "answer": "Egg",
-            "points": 10
+            "points": 10,
+            "turns": 3
         }, {
             "number": "12",
             "question": "Which letter of the alphabet contains the most water?",
             "answer": "C",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "13",
             "question": "What has a soul but doesn't live and a tongue but can't taste?",
             "answer": "Shoe",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "14",
             "question": "You buy me to eat, but never eat me. What am I?",
             "answer": "Silverware",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "15",
             "question": "What ends everything always?",
             "answer": "G",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "16",
             "question": "The maker doesn't want it, the buyer doesn't use it and the user doesn't know it. What is it?",
             "answer": "Coffin",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         }, {
             "number": "17",
             "question": "You go at red and stop at green. What am I?",
             "answer": "Watermelon",
-            "points": 10
+            "points": 10,
+            "turns": 3
 
         },
         {
             "number": "18",
             "question": "What do you call a three humped camel?",
             "answer": "Pregnant",
-            "points": 10
+            "points": 10,
+            "turns": 3
         }, {
             "number": "19",
             "question": "What do you get when you mix a snowman and a wolf?",
             "answer": "Frostbite",
-            "points": 10
+            "points": 10,
+            "turns": 3
         }, {
             "number": "20",
             "question": "Everyone has me except for a few. You may not be able to identify me but I can always identify you. What am I?",
             "answer": "Fingerprints",
-            "points": 10
+            "points": 10,
+            "turns": 3
         }
     ]
 }

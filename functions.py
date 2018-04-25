@@ -18,7 +18,7 @@ def setup_leaderboard():
         return True
         
 def clear_global_leaderboard():
-    # Initialises the leaderboard #
+    # Initialises the global leaderboard #
     data = {"leaderboard": []}
     write_json('data/global_leaderboard.json', data)
     json_decoded = load_json('data/global_leaderboard.json', 'r')
@@ -173,11 +173,18 @@ def question_selector(question):
     return riddle
 
 def score_display(question):
-    # Selects the  question #
+    # Displays the points value of a question #
     score = 0
     data = load_json('data/riddles.json', 'r')
     score = data['riddles'][int(question)]["points"]
     return score
+
+def turn_display(question):
+    # Selects the turns value of a question #
+    turns = 0
+    data = load_json('data/riddles.json', 'r')
+    turns = data['riddles'][int(question)]["turns"]
+    return turns
                 
 def next_player(username, qnumber):
     # Moves the turn to the next player #
@@ -223,7 +230,7 @@ def add_to_leaderboard(username, filename):
         return True
         
 def add_to_leaderboard_global(username, filename):
-    # Adds new user and a starting score to leaderboard #
+    # Adds new user and a starting score to global leaderboard #
     json_decoded = load_json(filename, "r")
     data = { 
         "username": username, "score": 0, 
@@ -233,7 +240,7 @@ def add_to_leaderboard_global(username, filename):
         return True
             
 def order_leaderboard_global():
-    # Orders the leaderboard according to score #
+    # Orders the global leaderboard according to score #
     json_decoded = load_json("data/global_leaderboard.json", "r")
     sorted_leaderboard = sorted(json_decoded['leaderboard'], 
     reverse=True, key=itemgetter("score"))
@@ -247,11 +254,19 @@ def order_leaderboard():
     return sorted_leaderboard
 
 def decrement_score(question):
+    # Reduces score value by 1 #
     json_decoded = load_json("data/riddles.json", "r")
     json_decoded['riddles'][int(question)]["points"] = json_decoded['riddles'][int(question)]["points"] - 1
     if write_json("data/riddles.json", json_decoded):
         return json_decoded['riddles'][int(question)]["points"]
 
+def decrement_turns(question):
+    # Reduces turns value of a question by 1 #
+    json_decoded = load_json("data/riddles.json", "r")
+    json_decoded['riddles'][int(question)]["turns"] = json_decoded['riddles'][int(question)]["turns"] - 1
+    if write_json("data/riddles.json", json_decoded):
+        return json_decoded['riddles'][int(question)]["turns"]
+        
 # ....Answer Checking Functions
 
 def check_answer(answer, question):
@@ -279,4 +294,5 @@ def right_or_wrong(username, answer, question):
         return True
     else:
         decrement_score(question)
+        decrement_turns(question)
         store_incorrect_answers(username, answer)

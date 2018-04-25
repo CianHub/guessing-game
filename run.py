@@ -16,7 +16,7 @@ from functions import(
     next_player, leaderboard_len, next_round, reset_turn, q_update,
     get_player_name, question_update, random_number_generator_dependent,
     init_riddles, get_player_score, random_number_generator, init_game,
-    score_display, decrement_score, get_question_points, load_json, write_json, check_leaderboard, add_to_leaderboard_global, order_leaderboard_global
+    score_display, decrement_score, get_question_points, load_json, write_json, check_leaderboard, add_to_leaderboard_global, order_leaderboard_global, turn_display
     )
 
 app = Flask(__name__)
@@ -114,33 +114,16 @@ def riddle(username, rnumber, qnumber, question):
         
     riddle = question_selector(question)
     score = score_display(question)
+    turns = turn_display(question)
     
     if request.method == "POST" and request.form["answer"]:
         return redirect(
             '/' + username + '/' + rnumber + '/' + qnumber + '/' +
             question  + '/' + request.form["answer"])
             
-    """elif request.method == "POST" and request.form["skip"]:
-        qnumber = q_update(qnumber)
-        question = question_update(question)
-        if int(qnumber) == -1:
-            rnumber = next_round(rnumber)
-            qnumber = reset_turn(qnumber)
-            username = next_player(username, qnumber)
-            if int(rnumber) > 5:
-                return redirect("/leaderboard")
-            return redirect(
-            '/' + username + '/' + rnumber + '/' + qnumber + '/' +
-            question )
-        else:
-            username = next_player(username, qnumber)
-            return redirect(
-            '/' + username + '/' + rnumber + '/' + qnumber + '/' +
-            question )"""
-            
     return render_template("riddle.html", username=username, 
     incorrect_answers=incorrect_answers, riddle=riddle, rnumber= rnumber, 
-    heading=heading, score=score, how_many_players=how_many_players)
+    heading=heading, score=score, how_many_players=how_many_players, turns=turns)
     
 @app.route('/<username>/<rnumber>/<qnumber>/<question>/<answer>')
 def send_answer(username, qnumber, answer, rnumber, question):

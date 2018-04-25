@@ -12,7 +12,9 @@ from functions import(
     next_player, leaderboard_len, next_round, reset_turn, q_update,
     get_player_name, question_update, random_number_generator_dependent,
     init_riddles, get_player_score, random_number_generator, init_game,
-    score_display, decrement_score, get_question_points, load_json, write_json, check_leaderboard, add_to_leaderboard_global, order_leaderboard_global, riddle_len, increase_user_score_global, order_leaderboard_global, clear_global_leaderboard
+    score_display, decrement_score, get_question_points, load_json, write_json, 
+    check_leaderboard, add_to_leaderboard_global, order_leaderboard_global, riddle_len, increase_user_score_global, 
+    order_leaderboard_global, clear_global_leaderboard, turn_display, decrement_turns
     )
  
 
@@ -147,6 +149,13 @@ class test_game(unittest.TestCase):
         self.assertEqual(score_display('1'), 10)
         self.assertEqual(score_display('2'), 9)
     
+    def test_turn_display(self):
+        # Test that function displays the turns value #
+        init_game()
+        decrement_turns('2')
+        self.assertEqual(turn_display('1'), 3)
+        self.assertEqual(turn_display('2'), 2)
+    
     def test_next_player(self):
         # Test that function returns the next username #
         init_game()
@@ -166,7 +175,7 @@ class test_game(unittest.TestCase):
         self.assertEqual(increase_user_score("Petey", '3'), 19)
     
     def test_increase_user_score_global(self):
-        # Test if function increases the users score on the leaderboard #
+        # Test if function increases the users score on the global leaderboard #
         clear_global_leaderboard()
         init_game()
         add_to_leaderboard_global("Petey",'data/global_leaderboard.json')
@@ -201,7 +210,7 @@ class test_game(unittest.TestCase):
             self.assertNotEqual(order_leaderboard(), original_leaderboard)
     
     def test_order_leaderboard_global(self):
-        # Test if function returns a rearranged version of the leaderboard list #
+        # Test if function returns a rearranged version of the global leaderboard list #
         clear_global_leaderboard()
         add_to_leaderboard_global("Jamie",'data/global_leaderboard.json')
         add_to_leaderboard_global("Petey",'data/global_leaderboard.json')
@@ -214,8 +223,15 @@ class test_game(unittest.TestCase):
         
     def test_decrement_score(self):
         # Tests if function decrements the points value of a question #
+        init_game()
         self.assertEqual(decrement_score('1'), 9)
         self.assertEqual(decrement_score('1'), 8)
+    
+    def test_decrement_turns(self):
+        # Tests if function decrements the turn value of a question #
+        init_game()
+        self.assertEqual(decrement_turns('1'), 2)
+        self.assertEqual(decrement_turns('2'), 2)
     
     # ....Answer Checking Functions
     

@@ -11,7 +11,7 @@
                     <br>
                     <h3>Question: {{ riddle }}</h3>
                     <p>({{ score }} points {% if score
-                        < 10 %} remaining {% endif %}) </p>
+                        < 10 %} remaining {% endif %}, {{ turns }} attempts remaining)</p>
                             <form method="POST">
                                 <br>
                                 <input type="text" class="form-control" placeholder="Type Your Answer" name="answer" id="answer" required data-validation-required-message="Type Your Answer.">
