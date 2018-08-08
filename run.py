@@ -27,10 +27,13 @@ app.secret_key = 'some_secret'
 @app.route('/', methods=["GET", "POST"])
 def index():
     # User(s) enter the number of players in the game #
+    
     init_game()
 
     if request.method == "POST":
+        
         if int(
+            
             request.form["playernum"]
             ) > 4 or int(
                 request.form["playernum"]
@@ -45,6 +48,7 @@ def index():
 @app.route('/setup/<playernum>', methods=["GET", "POST"])
 def username(playernum):
     # User(s) enter their desired usernames #
+    
     instruct_num = str(leaderboard_len("data/leaderboard.json") + 1)
     if request.method == "POST":
         
@@ -52,7 +56,6 @@ def username(playernum):
             
             # If not in global leaderboard #
             
-            print("new user")
             write_to_file("data/users.txt", request.form["username"].title() + "\n")
             write_to_file("data/global_users.txt", request.form["username"].title() + "\n")
             add_to_leaderboard(request.form["username"].title(), 'data/leaderboard.json')
@@ -68,8 +71,6 @@ def username(playernum):
                 
                 # If in global but not in local leaderboard #
                 
-                print("existing user")
-                
                 write_to_file("data/users.txt", request.form["username"].title() + "\n")
                 add_to_leaderboard(request.form["username"].title(), 'data/leaderboard.json')
                 
@@ -84,6 +85,7 @@ def username(playernum):
                 
             
         if int(playernum) == 0:
+            
                 qnumber = str(
                     leaderboard_len("data/leaderboard.json") - 1
                     )
@@ -105,6 +107,7 @@ def username(playernum):
 )
 def riddle(username, rnumber, qnumber, question):
     # Questions are shown, can be answered and wrong answers are shown #
+    
     how_many_players = leaderboard_len('data/leaderboard.json')
     incorrect_answers = print_content_in_list("data/incorrect_answers.txt")
     heading = ""
@@ -117,6 +120,7 @@ def riddle(username, rnumber, qnumber, question):
     turns = turn_display(question)
     
     if request.method == "POST" and request.form["answer"]:
+        
         return redirect(
             '/' + username + '/' + rnumber + '/' + qnumber + '/' +
             question  + '/' + request.form["answer"])
@@ -128,24 +132,31 @@ def riddle(username, rnumber, qnumber, question):
 @app.route('/<username>/<rnumber>/<qnumber>/<question>/<answer>')
 def send_answer(username, qnumber, answer, rnumber, question):
     # Create a new answer and redirect back to the riddle page #
+    
     if right_or_wrong(username, answer, question):
+        
         qnumber = q_update(qnumber)
         question = question_update(question)
         
         if int(qnumber) == -1:
+            
             rnumber = next_round(rnumber)
             qnumber = reset_turn(qnumber)
             username = next_player(username, qnumber)
+            
         else:
             username = next_player(username, qnumber)
             
     else:
         question_score = get_question_points(question)
+        
         if question_score <= 7:
+            
             qnumber = q_update(qnumber)
             question = question_update(question)
                 
             if int(qnumber) == -1:
+                
                 qnumber = reset_turn(qnumber)
                 rnumber = next_round(rnumber)
                 username = next_player(username, qnumber)
@@ -158,6 +169,7 @@ def send_answer(username, qnumber, answer, rnumber, question):
                 
     if int(rnumber) > 5:
         return redirect("/leaderboard")
+        
     return redirect(
         '/' + username + '/' + rnumber + '/' + qnumber + '/' + question
         )
@@ -165,15 +177,18 @@ def send_answer(username, qnumber, answer, rnumber, question):
 @app.route('/leaderboard', methods=["GET", "POST"])
 def leaderboard():
     # Displays leaderboard and winner #
+    
     number = 0
     leaderboard = order_leaderboard_global()
     winner = get_player_name(0)
     winner_score = get_player_score(0)
     runner_up = "blank"
     runner_up_score = 0
+    
     if len(order_leaderboard()) > 1:
         runner_up_score = get_player_score(1)
         runner_up = get_player_name(1)
+        
     return render_template(
         "leaderboard.html", winner=winner,
         winner_score=winner_score, runner_up_score=runner_up_score,

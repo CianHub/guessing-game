@@ -1,0 +1,182 @@
+/*...................................... GENERAL */
+
+@font-face {
+  /* Imports non-google font */
+  
+  font-family: "SqueakyChalkSound";
+  src: url("SqueakyChalkSound.ttf");
+
+}
+
+.site-heading {
+  /* Add space above the element */
+  
+  padding-top: 10em;
+  
+}
+
+.callout-container {
+  /* Alignment and size styles */
+  
+  height: 100vh;
+  align-items: center;
+  width: 100vw;
+  top: 50%;
+}
+
+input {
+  /* sets font for input element */
+  
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+}
+
+body {
+  /* BG image and font styles */
+  
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  font-family: 'SqueakyChalkSound', serif;
+  background-image: url('https://images2.alphacoders.com/553/553697.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+
+p {
+  /* spacing and color styles */
+  
+  line-height: 1.5;
+  margin: 30px 0;
+  color: white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /* heading tag font weight */
+  
+  font-weight: 800;
+}
+
+h1 {
+  /* Font and font color for h1 */
+  
+  color: white;
+  font-family: "SqueakyChalkSound", sans-serif
+}
+
+a {
+  /* set color, center align and remove decoration from link elements */
+  
+  text-decoration: none;
+  text-align: center;
+  color: white;
+}
+
+a:focus,
+a:hover {
+  /* set color when a link is interacted with */
+  
+  color: #0085A1;
+}
+
+.btn {
+  /* styles for btn elements. Styles fonts, space and makes them rectangular */
+  font-size: 14px;
+  font-weight: 800;
+  padding: 15px 25px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 0;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.btn-primary {
+  /* sets colors */
+  
+  background-color: #0085A1;
+  border-color: #0085A1;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  /* sets colors when interacted with */
+  
+  color: #fff;
+  background-color: #00657b !important;
+  border-color: #00657b !important;
+}
+
+.form {
+  /* positions the form element */
+  
+  float: none;
+  margin: 0 auto;
+}
+
+.form-control {
+  /* styles and positions the form-control elements */
+  
+  display: block;
+  width: 50%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*...................................... LEADERBOARD PAGE */
+
+.image{
+  /* Customised bootstrap image class, styles the crown image */
+  
+  width: 25%;
+  padding-top: 3em;
+}
+
+.table {
+  /* Colors table font */
+  
+  color: white;
+}
+
+.table-responsive {
+  /* Colors responsive table font */
+  
+  color: white;
+}
+
+#reset {
+  /* adds space below the div */
+  
+  padding-bottom: 2em;
+}
+
+/*...................................... MEDIA QUERIES */
+
+@media only screen and (min-width: 768px) {
+  .site-heading {
+    /* adds space around element */
+    padding: 200px 0;
+  }
+}

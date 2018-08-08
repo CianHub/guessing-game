@@ -37,7 +37,8 @@
             "number": "5",
             "question": "I start with M and end with X. I have a never ending amount of letters. What am I?",
             "answer": "Mailbox",
-            "points": 10
+            "points": 10,
+            "turns": 3
         }, {
             "number": "6",
             "question": "What can elephants make that no other animals can make?",
