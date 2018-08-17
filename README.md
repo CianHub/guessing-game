@@ -16,7 +16,7 @@ Before beginning development on the site, several user stories were created to d
 
 ### Design
 
-The application utlises a very minimal responsive design, mainly consisting of a text input field, two buttons and the information relating to the current screen. This convention is altered on the leaderboard screen where a table is used to display the leaderboard.
+The application utilises a minimal, responsive design, mainly consisting of a text input field, two buttons and the information relating to the current screen. This convention is altered on the leaderboard screen where a table is used to display the leaderboard.
 
 The styling of the application was inspired by a classroom aesthetic, in order to emphasise on the quiz aspect of the game. This was implememeted using a blackboard background image and a chalky handwritten font ([squeaky chalk sound](https://www.1001fonts.com/squeaky-chalk-sound-font.html))
 
