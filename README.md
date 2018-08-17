@@ -105,4 +105,4 @@ This project was deployed to Heroku. As this project does not require any sensit
 ### Acknowledgements
 
 - The riddles in this project were copied from [Riddles.fyi](https://riddles.fyi/)
-- The font used in this project can be found at [squeaky chalk sound font](https://www.1001fonts.com/squeaky-chalk-sound-font.html))
+- The font used in this project can be found at [squeaky chalk sound font](https://www.1001fonts.com/squeaky-chalk-sound-font.html)
